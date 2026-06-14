@@ -1,7 +1,15 @@
+'use client';
+
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import { motion } from 'framer-motion';
 import { Activity, Users, Stethoscope, Bell, FileText, Truck } from 'lucide-react';
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-50px' },
+  transition: { duration: 0.4, ease: 'easeOut' as const },
+};
 
 export default function LandingPage() {
   return (
@@ -12,39 +20,66 @@ export default function LandingPage() {
           <span className="font-display font-bold text-xl text-ink-900 dark:text-dark-text">PawCare</span>
         </Link>
         <div className="flex items-center gap-3">
-          <Link href="/auth/login"><Button variant="ghost">Sign in</Button></Link>
-          <Link href="/auth/signup"><Button>Get Started Free</Button></Link>
+          <Link href="/auth/login" className="text-sm font-medium text-ink-700 dark:text-dark-text-muted hover:text-ink-900 dark:hover:text-dark-text transition px-4 py-2">Sign in</Link>
+          <Link href="/auth/signup" className="btn btn-primary text-sm">Get Started Free</Link>
         </div>
       </header>
 
       <main className="max-w-6xl mx-auto px-6 pt-12 pb-24">
         <section className="text-center max-w-3xl mx-auto">
-          <span className="inline-block px-3 py-1 rounded-full bg-brand-light text-brand-primary text-xs font-medium mb-5 dark:bg-[rgba(255,107,107,0.15)] dark:text-[#FFB4B4]">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="inline-block px-3 py-1 rounded-full bg-brand-light text-brand-primary text-xs font-medium mb-5 dark:bg-[rgba(255,107,107,0.15)] dark:text-[#FFB4B4]"
+          >
             🐾 Built for multi-pet families
-          </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold tracking-tight text-ink-900 dark:text-dark-text">
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-display font-bold tracking-tight text-ink-900 dark:text-dark-text"
+          >
             All your pets.<br />
             <span className="gradient-brand bg-clip-text text-transparent brand-glow-text">All their care.</span>
-          </h1>
-          <p className="mt-5 text-lg text-ink-500 dark:text-dark-text-muted max-w-2xl mx-auto">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-5 text-lg text-ink-500 dark:text-dark-text-muted max-w-2xl mx-auto"
+          >
             Track health, get reminders, and never miss a vet visit for every cat and dog in your family. Free, private, and shared with the people who help you care.
-          </p>
-          <div className="mt-8 flex items-center justify-center gap-3 flex-wrap">
-            <Link href="/auth/signup"><Button size="lg">Get started free</Button></Link>
-            <Link href="#features"><Button size="lg" variant="secondary">See features</Button></Link>
-          </div>
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-8 flex items-center justify-center gap-3 flex-wrap"
+          >
+            <Link href="/auth/signup" className="btn btn-primary text-sm h-12 px-5">Get started free</Link>
+            <Link href="#features" className="btn btn-secondary text-sm h-12 px-5">See features</Link>
+          </motion.div>
           <p className="mt-3 text-xs text-ink-500 dark:text-dark-text-muted">No credit card · Works on web, iOS & Android</p>
         </section>
 
         <section className="mt-20 grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="features">
-          {FEATURES.map((f) => (
-            <Card key={f.title} className="p-6 card-hover">
-              <div className="h-10 w-10 rounded-xl bg-brand-light text-brand-primary flex items-center justify-center mb-3 dark:bg-[rgba(255,107,107,0.15)] dark:text-[#FFB4B4]">
+          {FEATURES.map((f, i) => (
+            <motion.div
+              key={f.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="glass-card-light dark:glass-card p-6 card-hover"
+            >
+              <div className="h-10 w-10 rounded-xl bg-brand-light text-brand-primary flex items-center justify-center mb-3 dark:bg-[rgba(255,107,107,0.18)] dark:text-[#FFB4B4]">
                 <f.icon className="h-5 w-5" />
               </div>
               <h3 className="font-semibold text-ink-900 dark:text-dark-text">{f.title}</h3>
               <p className="text-sm text-ink-500 dark:text-dark-text-muted mt-1">{f.desc}</p>
-            </Card>
+            </motion.div>
           ))}
         </section>
 
@@ -52,11 +87,18 @@ export default function LandingPage() {
           <h2 className="text-3xl font-display font-bold text-ink-900 dark:text-dark-text">How it works</h2>
           <div className="mt-8 grid sm:grid-cols-3 gap-4 text-left">
             {STEPS.map((s, i) => (
-              <div key={s.title} className="rounded-2xl card p-5">
+              <motion.div
+                key={s.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="glass-card-light dark:glass-card p-5"
+              >
                 <div className="h-7 w-7 rounded-full gradient-brand text-white text-sm font-semibold flex items-center justify-center brand-glow">{i + 1}</div>
                 <h3 className="font-semibold mt-3 text-ink-900 dark:text-dark-text">{s.title}</h3>
                 <p className="text-sm text-ink-500 dark:text-dark-text-muted mt-1">{s.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -65,7 +107,7 @@ export default function LandingPage() {
           <h2 className="text-3xl font-display font-bold">Ready to give your pets the care they deserve?</h2>
           <p className="mt-2 text-white/90">Set up takes 2 minutes. Free forever.</p>
           <Link href="/auth/signup" className="inline-block mt-6">
-            <Button size="lg" variant="secondary" className="bg-white text-brand-primary hover:bg-white">Create your PawCare account</Button>
+            <span className="btn bg-white text-brand-primary hover:bg-white text-sm h-12 px-5 font-semibold">Create your PawCare account</span>
           </Link>
         </section>
       </main>
