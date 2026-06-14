@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, Text, TextInput, Pressable, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { api } from '@/lib/api';
-import { SPECIES_LABELS, POPULAR_CAT_BREEDS, POPULAR_DOG_BREEDS, type Species } from '@pawcare/shared';
+import { SPECIES_LABELS, POPULAR_CAT_BREEDS, POPULAR_DOG_BREEDS, type Species } from '@/src-shared';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function NewPetScreen() {

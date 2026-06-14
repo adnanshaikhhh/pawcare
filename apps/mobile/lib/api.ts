@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-import type { Pet, Reminder, InventoryItem, Vaccination, Medication, WeightLog, MoodLog, VetVisit, DewormingRecord, FamilyGroup } from '@pawcare/shared';
+import type { Pet, Reminder, InventoryItem, Vaccination, Medication, WeightLog, MoodLog, VetVisit, DewormingRecord, FamilyGroup } from '@/src-shared';
 
 async function authedFetch(path: string, init?: RequestInit) {
   const { data: { session } } = await supabase.auth.getSession();

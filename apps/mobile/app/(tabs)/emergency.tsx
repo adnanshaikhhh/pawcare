@@ -4,7 +4,7 @@ import * as Location from 'expo-location';
 import { Card } from '@/components/Card';
 import { Pill } from '@/components/Pill';
 import { Phone, Navigation } from 'lucide-react-native';
-import type { EmergencyVet } from '@pawcare/shared';
+import type { EmergencyVet } from '@/src-shared';
 
 export default function EmergencyTab() {
   const [coords, setCoords] = useState<{ lat: number; lon: number } | null>(null);

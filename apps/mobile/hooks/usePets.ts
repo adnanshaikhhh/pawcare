@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '@/lib/api';
-import type { Pet, Reminder, InventoryItem, Vaccination, Medication, WeightLog, MoodLog, VetVisit, DewormingRecord } from '@pawcare/shared';
+import type { Pet, Reminder, InventoryItem, Vaccination, Medication, WeightLog, MoodLog, VetVisit, DewormingRecord } from '@/src-shared';
 
 export function usePets() {
   const [pets, setPets] = useState<Pet[]>([]);

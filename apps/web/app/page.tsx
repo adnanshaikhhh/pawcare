@@ -5,11 +5,11 @@ import { Activity, Users, Stethoscope, Bell, FileText, Truck } from 'lucide-reac
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-canvas">
+    <div className="min-h-screen light-mesh-bg dark:dark-mesh-bg">
       <header className="px-6 py-5 flex items-center justify-between max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
-          <div className="h-9 w-9 rounded-xl gradient-brand flex items-center justify-center text-white text-lg">🐾</div>
-          <span className="font-display font-bold text-xl">PawCare</span>
+          <div className="h-9 w-9 rounded-xl gradient-brand flex items-center justify-center text-white text-lg brand-glow">🐾</div>
+          <span className="font-display font-bold text-xl text-ink-900 dark:text-dark-text">PawCare</span>
         </Link>
         <div className="flex items-center gap-3">
           <Link href="/auth/login"><Button variant="ghost">Sign in</Button></Link>
@@ -19,49 +19,49 @@ export default function LandingPage() {
 
       <main className="max-w-6xl mx-auto px-6 pt-12 pb-24">
         <section className="text-center max-w-3xl mx-auto">
-          <span className="inline-block px-3 py-1 rounded-full bg-brand-light text-brand-primary text-xs font-medium mb-5">
+          <span className="inline-block px-3 py-1 rounded-full bg-brand-light text-brand-primary text-xs font-medium mb-5 dark:bg-[rgba(255,107,107,0.15)] dark:text-[#FFB4B4]">
             🐾 Built for multi-pet families
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold tracking-tight text-ink-900">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold tracking-tight text-ink-900 dark:text-dark-text">
             All your pets.<br />
-            <span className="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">All their care.</span>
+            <span className="gradient-brand bg-clip-text text-transparent brand-glow-text">All their care.</span>
           </h1>
-          <p className="mt-5 text-lg text-ink-500 max-w-2xl mx-auto">
+          <p className="mt-5 text-lg text-ink-500 dark:text-dark-text-muted max-w-2xl mx-auto">
             Track health, get reminders, and never miss a vet visit for every cat and dog in your family. Free, private, and shared with the people who help you care.
           </p>
           <div className="mt-8 flex items-center justify-center gap-3 flex-wrap">
             <Link href="/auth/signup"><Button size="lg">Get started free</Button></Link>
             <Link href="#features"><Button size="lg" variant="secondary">See features</Button></Link>
           </div>
-          <p className="mt-3 text-xs text-ink-500">No credit card · Works on web, iOS & Android</p>
+          <p className="mt-3 text-xs text-ink-500 dark:text-dark-text-muted">No credit card · Works on web, iOS & Android</p>
         </section>
 
         <section className="mt-20 grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="features">
           {FEATURES.map((f) => (
-            <Card key={f.title} className="p-6">
-              <div className="h-10 w-10 rounded-xl bg-brand-light text-brand-primary flex items-center justify-center mb-3">
+            <Card key={f.title} className="p-6 card-hover">
+              <div className="h-10 w-10 rounded-xl bg-brand-light text-brand-primary flex items-center justify-center mb-3 dark:bg-[rgba(255,107,107,0.15)] dark:text-[#FFB4B4]">
                 <f.icon className="h-5 w-5" />
               </div>
-              <h3 className="font-semibold text-ink-900">{f.title}</h3>
-              <p className="text-sm text-ink-500 mt-1">{f.desc}</p>
+              <h3 className="font-semibold text-ink-900 dark:text-dark-text">{f.title}</h3>
+              <p className="text-sm text-ink-500 dark:text-dark-text-muted mt-1">{f.desc}</p>
             </Card>
           ))}
         </section>
 
         <section className="mt-20 text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl font-display font-bold">How it works</h2>
+          <h2 className="text-3xl font-display font-bold text-ink-900 dark:text-dark-text">How it works</h2>
           <div className="mt-8 grid sm:grid-cols-3 gap-4 text-left">
             {STEPS.map((s, i) => (
-              <div key={s.title} className="rounded-2xl bg-white p-5 border border-ink-100">
-                <div className="h-7 w-7 rounded-full bg-brand-primary text-white text-sm font-semibold flex items-center justify-center">{i + 1}</div>
-                <h3 className="font-semibold mt-3">{s.title}</h3>
-                <p className="text-sm text-ink-500 mt-1">{s.desc}</p>
+              <div key={s.title} className="rounded-2xl card p-5">
+                <div className="h-7 w-7 rounded-full gradient-brand text-white text-sm font-semibold flex items-center justify-center brand-glow">{i + 1}</div>
+                <h3 className="font-semibold mt-3 text-ink-900 dark:text-dark-text">{s.title}</h3>
+                <p className="text-sm text-ink-500 dark:text-dark-text-muted mt-1">{s.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="mt-20 rounded-3xl gradient-brand text-white p-10 text-center">
+        <section className="mt-20 rounded-3xl gradient-brand text-white p-10 text-center brand-glow">
           <h2 className="text-3xl font-display font-bold">Ready to give your pets the care they deserve?</h2>
           <p className="mt-2 text-white/90">Set up takes 2 minutes. Free forever.</p>
           <Link href="/auth/signup" className="inline-block mt-6">
@@ -70,8 +70,8 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="border-t border-ink-100 py-8 text-center text-sm text-ink-500">
-        <p>© {new Date().getFullYear()} PawCare. Made with 🐾 for pet families.</p>
+      <footer className="border-t border-ink-100 dark:border-dark-border py-8 text-center text-sm text-ink-500 dark:text-dark-text-muted">
+        <p>© {new Date().getFullYear()} PawCare. Made with 🐾 for pet families everywhere.</p>
       </footer>
     </div>
   );

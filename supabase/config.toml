@@ -1,0 +1,7 @@
+project_id = "ktezkiifvstroujfjxqw"
+
+[api]
+host = "api.supabase.com"
+port = 443
+schema = "https"
+# Token is read from env or profile; CLI will read SUPABASE_ACCESS_TOKEN

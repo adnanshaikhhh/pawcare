@@ -4,9 +4,9 @@ import { useLocalSearchParams } from 'expo-router';
 import { usePetMedical } from '@/hooks/usePets';
 import { Card } from '@/components/Card';
 import { Pill } from '@/components/Pill';
-import { calculateAge, SPECIES_LABELS } from '@pawcare/shared';
+import { calculateAge, SPECIES_LABELS } from '@/src-shared';
 import { api } from '@/lib/api';
-import type { Pet } from '@pawcare/shared';
+import type { Pet } from '@/src-shared';
 import { Plus } from 'lucide-react-native';
 
 const TABS = ['Overview', 'Vaccines', 'Meds', 'Weight', 'Mood'] as const;

@@ -3,7 +3,7 @@ import { Card } from '@/components/Card';
 import { Avatar } from '@/components/Avatar';
 import { supabase } from '@/lib/supabase';
 import { useEffect, useState } from 'react';
-import type { Profile } from '@pawcare/shared';
+import type { Profile } from '@/src-shared';
 import { useRouter } from 'expo-router';
 import { LogOut, Users, Bell, FileText, Info } from 'lucide-react-native';
 

@@ -2,9 +2,12 @@
   "build": {
     "preview": {
       "android": { "buildType": "apk" },
-      "distribution": "internal"
+      "distribution": "internal",
+      "node": "20.18.1"
     },
-    "production": {}
+    "production": {
+      "node": "20.18.1"
+    }
   },
   "submit": {
     "production": {}

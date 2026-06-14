@@ -2,7 +2,7 @@ import { View, Text, ScrollView, Pressable, Alert } from 'react-native';
 import { useInventory } from '@/hooks/usePets';
 import { Card } from '@/components/Card';
 import { Pill } from '@/components/Pill';
-import { INVENTORY_CATEGORIES } from '@pawcare/shared';
+import { INVENTORY_CATEGORIES } from '@/src-shared';
 import { useState } from 'react';
 
 export default function InventoryTab() {

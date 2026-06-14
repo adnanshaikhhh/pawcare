@@ -7,8 +7,8 @@ import { Avatar } from '@/components/Avatar';
 import { Card } from '@/components/Card';
 import { Pill } from '@/components/Pill';
 import { supabase } from '@/lib/supabase';
-import type { Profile } from '@pawcare/shared';
-import { calculateAge, SPECIES_LABELS } from '@pawcare/shared';
+import type { Profile } from '@/src-shared';
+import { calculateAge, SPECIES_LABELS } from '@/src-shared';
 import { Bell, Activity, Stethoscope, Truck, Sparkles } from 'lucide-react-native';
 
 function greet() {

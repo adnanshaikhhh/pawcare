@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { Home, PawPrint, Stethoscope, Bell, Truck, Users, Settings, LogOut, Activity } from 'lucide-react';
+import { ThemeToggle } from '../ui/ThemeToggle';
 import { cn } from '@/lib/utils';
 
 const NAV = [
@@ -36,13 +37,15 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="hidden md:flex flex-col w-60 fixed inset-y-0 left-0 bg-white border-r border-ink-100 z-30">
-      <div className="px-5 py-5 flex items-center gap-2 border-b border-ink-100">
-        <div className="h-9 w-9 rounded-xl gradient-brand flex items-center justify-center text-white text-lg">🐾</div>
-        <div>
-          <p className="font-display font-bold text-ink-900">PawCare</p>
-          <p className="text-[10px] text-ink-500 leading-tight">Every pet. Every moment.</p>
-        </div>
+    <aside className="hidden md:flex flex-col w-60 fixed inset-y-0 left-0 z-30 glass-nav-light dark:glass-nav border-r border-ink-100 dark:border-dark-border">
+      <div className="px-5 py-5 flex items-center justify-between border-b border-ink-100 dark:border-dark-border">
+        <Link href="/dashboard" className="flex items-center gap-2">
+          <div className="h-9 w-9 rounded-xl gradient-brand flex items-center justify-center text-white text-lg brand-glow">🐾</div>
+          <div>
+            <p className="font-display font-bold text-ink-900 dark:text-dark-text leading-tight">PawCare</p>
+            <p className="text-[10px] text-ink-500 dark:text-dark-text-muted leading-tight">Every pet. Every moment.</p>
+          </div>
+        </Link>
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
@@ -53,19 +56,27 @@ export function Sidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition',
-                active ? 'bg-brand-light text-brand-primary' : 'text-ink-700 hover:bg-canvas-sunken'
+                'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200',
+                active
+                  ? 'bg-brand-light text-brand-primary dark:bg-[rgba(255,107,107,0.15)] dark:text-[#FFB4B4]'
+                  : 'text-ink-700 dark:text-dark-text-muted hover:bg-canvas-sunken dark:hover:bg-dark-surface'
               )}
             >
-              <item.icon className="h-4 w-4" />{item.label}
+              <item.icon className="h-4 w-4" />
+              {item.label}
             </Link>
           );
         })}
       </nav>
 
-      <div className="p-3 border-t border-ink-100">
-        <button onClick={signOut} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-ink-700 hover:bg-canvas-sunken">
-          <LogOut className="h-4 w-4" />Sign out
+      <div className="p-3 border-t border-ink-100 dark:border-dark-border space-y-2">
+        <div className="flex items-center justify-between px-2">
+          <span className="text-xs text-ink-500 dark:text-dark-text-muted">Theme</span>
+          <ThemeToggle />
+        </div>
+        <button onClick={signOut} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-ink-700 dark:text-dark-text-muted hover:bg-canvas-sunken dark:hover:bg-dark-surface transition">
+          <LogOut className="h-4 w-4" />
+          Sign out
         </button>
       </div>
     </aside>

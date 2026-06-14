@@ -3,7 +3,7 @@ import { Link } from 'expo-router';
 import { usePets } from '@/hooks/usePets';
 import { Card } from '@/components/Card';
 import { Pill } from '@/components/Pill';
-import { calculateAge, SPECIES_LABELS } from '@pawcare/shared';
+import { calculateAge, SPECIES_LABELS } from '@/src-shared';
 import { Plus } from 'lucide-react-native';
 
 export default function PetsTab() {
