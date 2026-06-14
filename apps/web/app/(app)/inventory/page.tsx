@@ -8,7 +8,7 @@ import { Input, Select } from '@/components/ui/Input';
 import { Pill } from '@/components/ui/Pill';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { PageTransition } from '@/components/ui/PageTransition';
-import { INVENTORY_CATEGORIES, type InventoryCategory } from '@pawcare/shared';
+import { INVENTORY_CATEGORIES, type InventoryCategory } from '@/lib/shared';
 import { Plus, ShoppingCart } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { cn } from '@/lib/utils';

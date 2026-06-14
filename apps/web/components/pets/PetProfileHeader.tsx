@@ -1,12 +1,12 @@
 'use client';
 
-import type { Pet } from '@pawcare/shared';
-import { calculateAge, SPECIES_LABELS } from '@pawcare/shared';
+import type { Pet } from '@/lib/shared';
+import { calculateAge, SPECIES_LABELS } from '@/lib/shared';
 import { Avatar } from '../ui/Avatar';
 import { HealthRing } from '../ui/HealthRing';
 import { Pill } from '../ui/Pill';
-import { calculateHealthScore, healthScoreColor, healthScoreLabel } from '@pawcare/shared';
-import type { Vaccination, DewormingRecord } from '@pawcare/shared';
+import { calculateHealthScore, healthScoreColor, healthScoreLabel } from '@/lib/shared';
+import type { Vaccination, DewormingRecord } from '@/lib/shared';
 
 interface PetProfileHeaderProps {
   pet: Pet;

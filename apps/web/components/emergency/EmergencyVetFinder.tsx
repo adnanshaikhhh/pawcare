@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useLocation } from '@/hooks/useLocation';
-import type { EmergencyVet } from '@pawcare/shared';
+import type { EmergencyVet } from '@/lib/shared';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Pill } from '../ui/Pill';

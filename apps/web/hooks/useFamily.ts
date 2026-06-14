@@ -1,7 +1,7 @@
 'use client';
 
 import useSWR from 'swr';
-import type { Profile, FamilyGroup, FamilyMember } from '@pawcare/shared';
+import type { Profile, FamilyGroup, FamilyMember } from '@/lib/shared';
 
 const fetcher = async (url: string) => {
   const res = await fetch(url, { credentials: 'include' });

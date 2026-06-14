@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { familyCreateSchema, familyJoinSchema } from '@pawcare/shared';
+import { familyCreateSchema, familyJoinSchema } from '@/lib/shared';
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
-import { generateFamilyCode } from '@pawcare/shared';
+import { generateFamilyCode } from '@/lib/shared';
 
 export async function GET() {
   const { user, response } = await requireUser();

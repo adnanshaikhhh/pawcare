@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
-import { petCreateSchema, petUpdateSchema } from '@pawcare/shared';
+import { petCreateSchema, petUpdateSchema } from '@/lib/shared';
 import { handleZodError, rateLimit } from '@/lib/route-helpers';
 
 export async function GET() {

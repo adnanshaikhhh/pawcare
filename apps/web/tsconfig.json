@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
@@ -9,9 +9,7 @@
     "moduleResolution": "bundler",
     "plugins": [{ "name": "next" }],
     "paths": {
-      "@/*": ["./*"],
-      "@pawcare/shared": ["../../packages/shared/index.ts"],
-      "@pawcare/shared/*": ["../../packages/shared/*"]
+      "@/*": ["./*"]
     }
   },
   "include": [

@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '../ui/Button';
 import { Input, Select, Textarea } from '../ui/Input';
-import { POPULAR_CAT_BREEDS, POPULAR_DOG_BREEDS, SPECIES_LABELS } from '@pawcare/shared';
-import type { Species } from '@pawcare/shared';
+import { POPULAR_CAT_BREEDS, POPULAR_DOG_BREEDS, SPECIES_LABELS } from '@/lib/shared';
+import type { Species } from '@/lib/shared';
 import toast from 'react-hot-toast';
 
 const STEPS = ['Basics', 'Birth & Adoption', 'Medical', 'Photo', 'Confirm'] as const;

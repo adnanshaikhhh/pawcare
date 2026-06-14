@@ -5,7 +5,7 @@ import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Textarea } from '../ui/Input';
 import { Pill } from '../ui/Pill';
-import { URGENCY_COLORS, type Pet, type SymptomCheckResult } from '@pawcare/shared';
+import { URGENCY_COLORS, type Pet, type SymptomCheckResult } from '@/lib/shared';
 import { cn } from '@/lib/utils';
 
 interface SymptomCheckerProps {

@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import type { Pet } from '@pawcare/shared';
-import { calculateAge, SPECIES_LABELS } from '@pawcare/shared';
+import type { Pet } from '@/lib/shared';
+import { calculateAge, SPECIES_LABELS } from '@/lib/shared';
 import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
 import { Pill } from '../ui/Pill';

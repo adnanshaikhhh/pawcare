@@ -14,7 +14,7 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { PageTransition, Stagger, StaggerItem } from '@/components/ui/PageTransition';
 import { Plus, Activity, Stethoscope, Pill as PillIcon, Bell, Sparkles, Truck, ChevronRight } from 'lucide-react';
 import { formatRelativeDays } from '@/lib/utils';
-import { formatInr } from '@pawcare/shared';
+import { formatInr } from '@/lib/shared';
 import { differenceInDays, parseISO } from 'date-fns';
 
 function timeOfDay() {

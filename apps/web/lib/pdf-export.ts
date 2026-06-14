@@ -1,8 +1,8 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { format } from 'date-fns';
-import type { Pet, Vaccination, Medication, DewormingRecord, WeightLog, VetVisit, MedicationLog } from '@pawcare/shared';
-import { calculateAge } from '@pawcare/shared';
+import type { Pet, Vaccination, Medication, DewormingRecord, WeightLog, VetVisit, MedicationLog } from '@/lib/shared';
+import { calculateAge } from '@/lib/shared';
 
 export function generatePetProfilePdf(args: {
   pet: Pet;

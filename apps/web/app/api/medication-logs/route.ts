@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { medicationLogSchema } from '@pawcare/shared';
+import { medicationLogSchema } from '@/lib/shared';
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 

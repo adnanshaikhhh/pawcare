@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { PageTransition } from '@/components/ui/PageTransition';
-import { SPECIES_LABELS, type Species } from '@pawcare/shared';
+import { SPECIES_LABELS, type Species } from '@/lib/shared';
 import { Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

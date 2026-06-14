@@ -1,4 +1,4 @@
-import type { EmergencyVet } from '@pawcare/shared';
+import type { EmergencyVet } from '@/lib/shared';
 
 const HAVERSINE_KM = 6371;
 

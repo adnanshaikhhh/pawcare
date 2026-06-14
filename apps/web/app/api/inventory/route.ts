@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { inventoryItemSchema, inventoryPurchaseSchema } from '@pawcare/shared';
+import { inventoryItemSchema, inventoryPurchaseSchema } from '@/lib/shared';
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 

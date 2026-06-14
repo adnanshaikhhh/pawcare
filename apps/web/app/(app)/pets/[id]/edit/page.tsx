@@ -6,8 +6,8 @@ import { usePet } from '@/hooks/usePets';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Input, Select, Textarea } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
-import { POPULAR_CAT_BREEDS, POPULAR_DOG_BREEDS, SPECIES_LABELS } from '@pawcare/shared';
-import type { Species } from '@pawcare/shared';
+import { POPULAR_CAT_BREEDS, POPULAR_DOG_BREEDS, SPECIES_LABELS } from '@/lib/shared';
+import type { Species } from '@/lib/shared';
 import { PageTransition } from '@/components/ui/PageTransition';
 import toast from 'react-hot-toast';
 

@@ -9,7 +9,7 @@ import { Input, Select, Textarea } from '@/components/ui/Input';
 import { Pill } from '@/components/ui/Pill';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { PageTransition } from '@/components/ui/PageTransition';
-import { REMINDER_TYPE_LABELS, type ReminderType } from '@pawcare/shared';
+import { REMINDER_TYPE_LABELS, type ReminderType } from '@/lib/shared';
 import { Plus, Check } from 'lucide-react';
 import { formatRelativeDays } from '@/lib/utils';
 import { differenceInDays, parseISO } from 'date-fns';

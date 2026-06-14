@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { vetVisitSchema } from '@pawcare/shared';
+import { vetVisitSchema } from '@/lib/shared';
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 

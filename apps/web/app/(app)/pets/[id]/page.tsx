@@ -13,7 +13,7 @@ import { Pill } from '@/components/ui/Pill';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { PageTransition } from '@/components/ui/PageTransition';
 import { Plus, Download, FileDown, Edit, Trash } from 'lucide-react';
-import { formatDate, formatInr } from '@pawcare/shared';
+import { formatDate, formatInr } from '@/lib/shared';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import toast from 'react-hot-toast';
 

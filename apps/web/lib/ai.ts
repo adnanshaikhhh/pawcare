@@ -1,4 +1,4 @@
-import type { Pet, SymptomCheckResult, UrgencyLevel, MoodLog, Vaccination, WeightLog } from '@pawcare/shared';
+import type { Pet, SymptomCheckResult, UrgencyLevel, MoodLog, Vaccination, WeightLog } from '@/lib/shared';
 
 const EMERGENCY_KEYWORDS = [
   'unconscious', 'unresponsive', 'seizure', 'convuls', 'collapse', 'collapsed',

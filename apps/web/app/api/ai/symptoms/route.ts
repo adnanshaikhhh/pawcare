@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { symptomCheckSchema } from '@pawcare/shared';
+import { symptomCheckSchema } from '@/lib/shared';
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { aiSymptomCheck } from '@/lib/ai';
 import { handleZodError, rateLimit } from '@/lib/route-helpers';
