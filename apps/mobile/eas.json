@@ -4,21 +4,19 @@
     "appVersionSource": "local"
   },
   "build": {
-    "preview": {
+    "standalone": {
       "distribution": "internal",
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
-      },
-      "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "https://ktezkiifvstroujfjxqw.supabase.co",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_8f8EOyugePnuapOXAz7OZA_-IH35QMq",
-        "EXPO_PUBLIC_API_URL": "https://pawcare-omega.vercel.app"
       }
     },
-    "production": {
+    "standalone-debug": {
+      "distribution": "internal",
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleDebug",
+        "withoutCredentials": true
       }
     }
   },
