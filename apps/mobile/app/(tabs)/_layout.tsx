@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Home, PawPrint, AlertTriangle, Package, Settings as Cog } from 'lucide-react-native';
+import { Home, PawPrint, AlertTriangle, Package, Settings as Cog, Sparkles } from 'lucide-react-native';
 
 export default function TabsLayout() {
   return (
@@ -21,6 +21,7 @@ export default function TabsLayout() {
     >
       <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: ({ color }) => <Home color={color} size={22} /> }} />
       <Tabs.Screen name="pets" options={{ title: 'Pets', tabBarIcon: ({ color }) => <PawPrint color={color} size={22} /> }} />
+      <Tabs.Screen name="insights" options={{ title: 'Insights', tabBarIcon: ({ color }) => <Sparkles color={color} size={22} /> }} />
       <Tabs.Screen name="emergency" options={{ title: 'SOS', tabBarIcon: ({ color }) => <AlertTriangle color={color} size={22} /> }} />
       <Tabs.Screen name="inventory" options={{ title: 'Stock', tabBarIcon: ({ color }) => <Package color={color} size={22} /> }} />
       <Tabs.Screen name="settings" options={{ title: 'Me', tabBarIcon: ({ color }) => <Cog color={color} size={22} /> }} />
