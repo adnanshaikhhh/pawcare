@@ -87,7 +87,7 @@ export default function SymptomCorrelationsPage() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <h1 className="text-3xl font-display font-bold">🔗 Symptom Correlations</h1>
-            <p className="text-ink-500 mt-1">AI-detected patterns across pets' symptoms.</p>
+            <p className="text-ink-500 mt-1">AI-detected patterns across pets&apos; symptoms.</p>
           </div>
           <Button onClick={handleAnalyze} disabled={analyzing}>
             <Sparkles className="h-4 w-4 mr-1" />

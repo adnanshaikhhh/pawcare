@@ -65,7 +65,7 @@ export default function DailyMoodSummaryPage() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-display font-bold">🌤️ Daily Mood</h1>
-          <p className="text-ink-500 mt-1">Today's family-wide mood weather — {today}.</p>
+          <p className="text-ink-500 mt-1">Today&apos;s family-wide mood weather — {today}.</p>
         </div>
 
         {loading ? (

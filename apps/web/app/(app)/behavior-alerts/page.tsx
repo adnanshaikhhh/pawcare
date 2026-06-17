@@ -112,7 +112,7 @@ export default function BehaviorAlertsPage() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-display font-bold">🚨 Behavior Alerts</h1>
-          <p className="text-ink-500 mt-1">Detected changes in your pets' behavior.</p>
+          <p className="text-ink-500 mt-1">Detected changes in your pets&apos; behavior.</p>
         </div>
 
         {!loading && alerts.length > 0 ? (
