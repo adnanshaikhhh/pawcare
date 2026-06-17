@@ -7,6 +7,16 @@ module.exports = function (api) {
     plugins: [
       'nativewind/babel',
       'react-native-worklets/plugin',
+      [
+        'module-resolver',
+        {
+          root: ['./'],
+          alias: {
+            '@': './',
+          },
+          extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+        },
+      ],
     ],
   };
 };

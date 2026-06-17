@@ -21,6 +21,7 @@
     "@supabase/supabase-js": "^2.43.0",
     "expo": "~54.0.35",
     "expo-constants": "~18.0.13",
+    "expo-device": "^56.0.4",
     "expo-file-system": "~19.0.23",
     "expo-image-picker": "~17.0.10",
     "expo-linking": "~8.0.12",
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@babel/core": "^7.25.0",
     "@types/react": "~19.1.10",
+    "babel-plugin-module-resolver": "^5.0.2",
     "typescript": "^5.4.0"
   },
   "overrides": {
