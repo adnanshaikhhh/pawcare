@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupportedStorage } from '@supabase/supabase-js';
 import Constants from 'expo-constants';
 import * as SecureStore from 'expo-secure-store';
 
@@ -17,7 +17,7 @@ if (!url || !key) {
 
 export const supabase = createClient(url || 'https://placeholder.supabase.co', key || 'placeholder', {
   auth: {
-    storage: ExpoSecureStoreAdapter as unknown as Storage,
+    storage: ExpoSecureStoreAdapter as unknown as SupportedStorage,
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false,
