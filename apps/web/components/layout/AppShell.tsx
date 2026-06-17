@@ -81,7 +81,37 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 { href: '/inventory', label: '📦 Inventory' },
                 { href: '/reminders', label: '⏰ Reminders' },
                 { href: '/family', label: '👨‍👩‍👧 Family' },
+                { href: '/expenses', label: '💸 Expenses' },
+                { href: '/timeline', label: '📖 Activity Timeline' },
                 { href: '/settings', label: '⚙️ Settings' },
+              ].map((i) => (
+                <Link key={i.href} href={i.href} className="block px-3 py-2.5 rounded-xl text-sm text-ink-900 dark:text-dark-text hover:bg-canvas-sunken dark:hover:bg-dark-surface">
+                  {i.label}
+                </Link>
+              ))}
+
+              <div className="pt-3 pb-1 px-3">
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-ink-500 dark:text-dark-text-muted">✨ V2 Features</p>
+                <div className="mt-1 h-px bg-ink-100 dark:bg-dark-border" />
+              </div>
+              {[
+                { href: '/stories', label: '📸 Stories' },
+                { href: '/behavior-alerts', label: '🚨 Behavior Alerts' },
+                { href: '/dental', label: '🦷 Dental' },
+                { href: '/birthday', label: '🎂 Birthday' },
+                { href: '/labs', label: '🧪 Labs' },
+                { href: '/medication-interactions', label: '💊 Med Interactions' },
+                { href: '/weight-goals', label: '⚖️ Weight Goals' },
+                { href: '/year-review', label: '📅 Year Review' },
+                { href: '/daily-mood-summary', label: '🌤️ Daily Mood' },
+                { href: '/monthly-spend', label: '💰 Monthly Spend' },
+                { href: '/symptom-correlations', label: '🔗 Symptom Correlations' },
+                { href: '/vet-handoff', label: '🤝 Vet Handoff' },
+                { href: '/vet-prep', label: '🏥 Vet Prep' },
+                { href: '/responsibilities', label: '📋 Responsibilities' },
+                { href: '/smart-reminders', label: '💡 Smart Reminders' },
+                { href: '/community', label: '🌍 Community' },
+                { href: '/indian-vets', label: '🩺 Indian Vets' },
               ].map((i) => (
                 <Link key={i.href} href={i.href} className="block px-3 py-2.5 rounded-xl text-sm text-ink-900 dark:text-dark-text hover:bg-canvas-sunken dark:hover:bg-dark-surface">
                   {i.label}

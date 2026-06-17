@@ -14,9 +14,23 @@
 import OpenAI from 'openai';
 import { addDays, differenceInDays, parseISO, subDays } from 'date-fns';
 
-const openai = process.env.OPENAI_API_KEY
-  ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+// OpenAI-compatible client. Prefers NVIDIA NIM (the user's accepted fallback,
+// OpenAI-compatible endpoint at integrate.api.nvidia.com/v1) when those env
+// vars are set, falling back to OPENAI_API_KEY for direct OpenAI, falling back
+// to rule-based only (null) when neither is configured.
+const nvidiaKey = process.env.NVIDIA_NIM_API_KEY;
+const nvidiaBase = process.env.NVIDIA_NIM_BASE_URL || 'https://integrate.api.nvidia.com/v1';
+const nvidiaModel = process.env.NVIDIA_NIM_MODEL || 'meta/llama-3.1-70b-instruct';
+const openaiKey = process.env.OPENAI_API_KEY;
+
+const openai = nvidiaKey
+  ? new OpenAI({ apiKey: nvidiaKey, baseURL: nvidiaBase })
+  : openaiKey
+  ? new OpenAI({ apiKey: openaiKey })
   : null;
+
+const aiModel = nvidiaKey ? nvidiaModel : 'gpt-4o-mini';
+const aiProvider = nvidiaKey ? 'nvidia-nim' : openaiKey ? 'openai' : 'rule-based';
 
 // ============================================================================
 // #7 VET VISIT PREP BRIEF
@@ -104,10 +118,10 @@ export async function generateVetPrepBrief(input: VetPrepInput): Promise<string>
 ${questions.length > 0 ? questions.map((q) => `- ${q}`).join('\n') : '- Bring up any new behavioral changes'}`;
 
   // If OpenAI is available, enhance with AI insights
-  if (openai && process.env.OPENAI_API_KEY) {
+  if (openai) {
     try {
       const completion = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
+        model: aiModel,
         messages: [
           {
             role: 'system',
@@ -450,7 +464,7 @@ export async function parseLabResults(imageBase64: string): Promise<{
 
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: aiModel,
       messages: [
         {
           role: 'user',
