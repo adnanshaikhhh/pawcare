@@ -21,5 +21,8 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "packageManager": "npm@10.0.0"
+  "packageManager": "npm@10.0.0",
+  "dependencies": {
+    "react-native-worklets": "^0.7.4"
+  }
 }
