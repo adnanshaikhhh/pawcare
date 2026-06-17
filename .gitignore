@@ -42,4 +42,8 @@ Thumbs.db
 *.pem
 coverage/
 
+# Supabase tokens / secrets (NEVER commit)
+.supabase-token
+.supabase-secret
+
 .vercel
