@@ -8,6 +8,24 @@ const handoffSchema = z.object({
   estimated_return: z.string().optional(),
 });
 
+export async function GET(request: Request) {
+  const { user, response, supabase } = await requireUser(request);
+  if (response) return response;
+  const client = supabase ?? createSupabaseServerClient();
+  const url = new URL(request.url);
+  const petId = url.searchParams.get('pet_id');
+  const activeOnly = url.searchParams.get('active') !== 'false';
+  let query = client
+    .from('vet_visit_handoffs')
+    .select('*, profiles:traveler_id(full_name, avatar_url), pets(name)')
+    .order('started_at', { ascending: false });
+  if (petId) query = query.eq('pet_id', petId);
+  if (activeOnly) query = query.is('ended_at', null);
+  const { data, error } = await query;
+  if (error) return NextResponse.json({ error: { message: error.message } }, { status: 500 });
+  return NextResponse.json({ data });
+}
+
 export async function POST(request: Request) {
   const { user, response, supabase } = await requireUser(request);
   if (response) return response;
