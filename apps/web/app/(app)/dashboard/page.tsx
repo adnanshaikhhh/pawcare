@@ -16,6 +16,10 @@ import { Plus, Activity, Stethoscope, Pill as PillIcon, Bell, Sparkles, Truck, C
 import { formatRelativeDays } from '@/lib/utils';
 import { formatInr } from '@/lib/shared';
 import { differenceInDays, parseISO } from 'date-fns';
+import { StoriesCarousel } from '@/components/v2/StoriesCarousel';
+import { MoodWeatherCard } from '@/components/v2/MoodWeatherCard';
+import { BehaviorAlertBanner } from '@/components/v2/BehaviorAlertBanner';
+import { CatEconomicsWidget } from '@/components/v2/CatEconomicsWidget';
 
 function timeOfDay() {
   const h = new Date().getHours();
@@ -39,6 +43,18 @@ export default function DashboardPage() {
         <div>
           <h1 className="text-3xl font-display font-bold">{timeOfDay()}{profile?.full_name ? `, ${profile.full_name}` : ''} 👋</h1>
           <p className="text-ink-500 mt-1">Here&apos;s how your family is doing today.</p>
+        </div>
+
+        {/* V2: Behavior Alert Banner — shows only if alerts exist */}
+        <BehaviorAlertBanner />
+
+        {/* V2: Stories Carousel — Instagram-style pet stories */}
+        <StoriesCarousel stories={[]} />
+
+        {/* V2: Mood Weather + Economics */}
+        <div className="grid sm:grid-cols-2 gap-4">
+          <MoodWeatherCard />
+          <CatEconomicsWidget />
         </div>
 
         <Stagger className="grid sm:grid-cols-3 gap-4">
