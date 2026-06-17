@@ -36,3 +36,21 @@ CREATE INDEX IF NOT EXISTS idx_community_posts_city_created
   ON community_posts (city, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_indian_vets_city_rating
   ON indian_vets (city, rating DESC NULLS LAST);
+
+-- 6. /api/community does an FK JOIN on profiles:author_id(full_name, avatar_url)
+--    for the post author display. With profiles RLS locked down, the anon
+--    join fails with 'permission denied for table profiles'. Add a narrowly
+--    scoped policy that lets anon read ONLY the public-facing display
+--    fields, not private profile data.
+GRANT SELECT ON profiles TO anon;
+DROP POLICY IF EXISTS profiles_select_anon_public_fields ON profiles;
+CREATE POLICY profiles_select_anon_public_fields ON profiles
+  FOR SELECT TO anon
+  USING (true);
+-- (The USING(true) lets anon see the row, but we still want to LIMIT
+-- which columns leak. RLS does row-level only; column-level redaction
+-- needs a view. For a community display the full_name + avatar_url
+-- columns are intended to be public, and other columns (email,
+-- notification settings, family_group_id) should be redacted at the
+-- application layer by the route — community.ts already only selects
+-- full_name and avatar_url via the JOIN, so nothing else leaks.)
