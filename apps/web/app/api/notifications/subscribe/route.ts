@@ -4,7 +4,7 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 
 export async function POST(req: Request) {
-  const { user, response } = await requireUser();
+  const { user, response } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();

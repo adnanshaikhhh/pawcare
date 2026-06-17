@@ -4,10 +4,10 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 import { generateFamilyCode } from '@/lib/shared';
 
-export async function GET() {
-  const { user, response } = await requireUser();
+export async function GET(request: Request) {
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const supabase = createSupabaseServerClient();
+  const supabase = userSupabase ?? createSupabaseServerClient();
   const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
   if (!profile?.family_group_id) {
     return NextResponse.json({ data: null });
@@ -26,7 +26,7 @@ export async function GET() {
 
 export async function POST(req: Request) {
   // Create a new family group
-  const { user, response } = await requireUser();
+  const { user, response } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();
@@ -58,7 +58,7 @@ export async function POST(req: Request) {
 
 export async function PATCH(req: Request) {
   // Join with invite code
-  const { user, response } = await requireUser();
+  const { user, response } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();

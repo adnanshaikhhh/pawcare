@@ -3,10 +3,10 @@ import { inventoryItemSchema, inventoryPurchaseSchema } from '@/lib/shared';
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 
-export async function GET() {
-  const { response } = await requireUser();
+export async function GET(request: Request) {
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const supabase = createSupabaseServerClient();
+  const supabase = userSupabase ?? createSupabaseServerClient();
   const { data, error } = await supabase
     .from('inventory_items')
     .select('*')
@@ -17,7 +17,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const { user, response } = await requireUser();
+  const { user, response } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();

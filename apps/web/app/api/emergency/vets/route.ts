@@ -4,7 +4,7 @@ import { findNearbyVets } from '@/lib/places';
 import { getClientIp, rateLimit } from '@/lib/route-helpers';
 
 export async function GET(request: NextRequest) {
-  const { response } = await requireUser();
+  const { response } = await requireUser(request);
   if (response) return response;
 
   const ip = getClientIp(request);

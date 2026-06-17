@@ -4,7 +4,7 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 
 export async function POST(req: Request) {
-  const { user, response } = await requireUser();
+  const { user, response } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 }
 
 export async function GET(req: Request) {
-  const { response } = await requireUser();
+  const { response } = await requireUser(req);
   if (response) return response;
   const url = new URL(req.url);
   const medicationId = url.searchParams.get('medication_id');

@@ -5,7 +5,7 @@ import { aiSymptomCheck } from '@/lib/ai';
 import { handleZodError, rateLimit } from '@/lib/route-helpers';
 
 export async function POST(request: NextRequest) {
-  const { user, response } = await requireUser();
+  const { user, response } = await requireUser(request);
   if (response) return response;
 
   // Rate limit: 10 per day per user

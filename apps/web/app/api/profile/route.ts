@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createSupabaseServerClient } from '@/lib/supabase-server';
+import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 
 const profileUpdateSchema = z.object({
@@ -9,31 +9,31 @@ const profileUpdateSchema = z.object({
   timezone: z.string().max(50).optional(),
 });
 
-export async function GET() {
-  const supabase = createSupabaseServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ data: null });
-  const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+export async function GET(request: Request) {
+  const { user, response, supabase: userSupabase } = await requireUser(request);
+  if (response) return response;
+  const supabase = userSupabase ?? createSupabaseServerClient();
+  const { data, error } = await supabase.from('profiles').select('*').eq('id', user!.id).maybeSingle();
   if (error) return NextResponse.json({ error: { message: error.message } }, { status: 500 });
   return NextResponse.json({ data });
 }
 
-export async function PATCH(req: Request) {
-  const supabase = createSupabaseServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: { message: 'Unauthorized' } }, { status: 401 });
+export async function PATCH(request: Request) {
+  const { user, response, supabase: userSupabase } = await requireUser(request);
+  if (response) return response;
+  const supabase = userSupabase ?? createSupabaseServerClient();
   try {
-    const raw = await req.json();
+    const raw = await request.json();
     const parsed = profileUpdateSchema.parse(raw);
     const { data, error } = await supabase
       .from('profiles')
-      .update(parsed)
-      .eq('id', user.id)
+      .upsert({ id: user!.id, ...parsed, updated_at: new Date().toISOString() })
       .select()
       .single();
     if (error) return NextResponse.json({ error: { message: error.message } }, { status: 500 });
     return NextResponse.json({ data });
   } catch (err) {
-    return NextResponse.json({ error: handleZodError(err) }, { status: 400 });
+    const e = handleZodError(err);
+    return NextResponse.json({ error: e }, { status: 400 });
   }
 }

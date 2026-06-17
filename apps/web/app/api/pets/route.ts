@@ -4,10 +4,10 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { petCreateSchema, petUpdateSchema } from '@/lib/shared';
 import { handleZodError, rateLimit } from '@/lib/route-helpers';
 
-export async function GET() {
-  const { user, response } = await requireUser();
+export async function GET(request: Request) {
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const supabase = createSupabaseServerClient();
+  const supabase = userSupabase ?? createSupabaseServerClient();
 
   const { data, error } = await supabase
     .from('pets')
@@ -20,7 +20,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const { user, response } = await requireUser();
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
 
   const rl = rateLimit(`pets:create:${user.id}`, 30, 60_000);
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const input = petCreateSchema.parse(body);
 
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
     const { data: profile } = await supabase
       .from('profiles')
       .select('family_group_id')
