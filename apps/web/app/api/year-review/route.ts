@@ -7,9 +7,13 @@ export async function GET(request: Request) {
   const client = userSupabase ?? createSupabaseServerClient();
   const url = new URL(request.url);
   const petId = url.searchParams.get('pet_id');
-  const year = url.searchParams.get('year');
-  if (!petId || !year) return NextResponse.json({ error: { message: 'pet_id and year required' } }, { status: 400 });
-  const { data, error } = await client.from('pet_year_reviews').select('*, pets(name, photo_url, date_of_birth)').eq('pet_id', petId).eq('year', parseInt(year)).single();
+  const yearStr = url.searchParams.get('year');
+  if (!petId || !yearStr) return NextResponse.json({ error: { message: 'pet_id and year required' } }, { status: 400 });
+  const year = parseInt(yearStr, 10);
+  if (!Number.isFinite(year) || year < 1900 || year > 9999) {
+    return NextResponse.json({ error: { message: 'year must be a valid 4-digit number' } }, { status: 400 });
+  }
+  const { data, error } = await client.from('pet_year_reviews').select('*, pets(name, photo_url, date_of_birth)').eq('pet_id', petId).eq('year', year).single();
   if (error && error.code === 'PGRST116') {
     return NextResponse.json({ data: null, message: 'No year review yet for this pet/year' });
   }

@@ -3,8 +3,12 @@ import { dewormingSchema, weightLogSchema, moodLogSchema, heatCycleSchema } from
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 
-async function readTable(table: 'deworming_records' | 'weight_logs' | 'mood_logs' | 'heat_cycles', petId: string) {
-  const supabase = createSupabaseServerClient();
+async function readTable(
+  table: 'deworming_records' | 'weight_logs' | 'mood_logs' | 'heat_cycles',
+  petId: string,
+  userSupabase: ReturnType<typeof createSupabaseServerClient> | null
+) {
+  const supabase = userSupabase ?? createSupabaseServerClient();
   const orderCol = table === 'weight_logs' ? 'measured_at' : table === 'mood_logs' ? 'logged_date' : 'date_given';
   const { data, error } = await supabase
     .from(table)
@@ -28,7 +32,8 @@ export async function GET(req: Request, { params }: { params: { type: string; pe
       case 'heat-cycles':
         data = await readTable(
           type === 'heat-cycles' ? 'heat_cycles' : (type as 'deworming_records' | 'weight_logs' | 'mood_logs'),
-          petId
+          petId,
+          userSupabase
         );
         break;
       default:
@@ -68,7 +73,7 @@ export async function POST(req: Request, { params }: { params: { type: string; p
       default:
         return NextResponse.json({ error: { message: 'Unknown type' } }, { status: 400 });
     }
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
     const { data, error } = await supabase
       .from(table)
       .insert({ ...parsed, logged_by: user.id })
