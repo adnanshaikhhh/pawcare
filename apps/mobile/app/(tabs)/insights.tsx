@@ -10,12 +10,14 @@ import { QuickMoodFAB } from '@/components/v2/QuickMoodFAB';
 import { StoriesCarousel } from '@/components/v2/StoriesCarousel';
 import { WeightGoalTracker } from '@/components/v2/WeightGoalTracker';
 import { Sparkles } from 'lucide-react-native';
+import type { Pet, WeightLog } from '@/src-shared';
 
 export default function InsightsTab() {
   const [refreshing, setRefreshing] = useState(false);
   const [sessionReady, setSessionReady] = useState(false);
   const [familyId, setFamilyId] = useState<string | null>(null);
-  const [petId, setPetId] = useState<string | null>(null);
+  const [primaryPet, setPrimaryPet] = useState<Pet | null>(null);
+  const [weights, setWeights] = useState<WeightLog[]>([]);
 
   const load = useCallback(async () => {
     setRefreshing(true);
@@ -29,11 +31,28 @@ export default function InsightsTab() {
           .single();
         setFamilyId(profile?.family_group_id ?? null);
 
+        // Get primary pet for weight tracker
         const { data: pets } = await supabase
           .from('pets')
-          .select('id')
-          .limit(1);
-        setPetId(pets?.[0]?.id ?? null);
+          .select('*')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true })
+          .limit(1)
+          .maybeSingle();
+        setPrimaryPet((pets as Pet) ?? null);
+
+        // If we have a pet, fetch its weight logs for the WeightGoalTracker.
+        if (pets?.id) {
+          const { data: weightRows } = await supabase
+            .from('weight_logs')
+            .select('*')
+            .eq('pet_id', pets.id)
+            .order('measured_at', { ascending: false })
+            .limit(50);
+          setWeights((weightRows as WeightLog[]) ?? []);
+        } else {
+          setWeights([]);
+        }
       }
     } catch (e) {
       console.warn('[Insights] load failed', e);
@@ -93,12 +112,12 @@ export default function InsightsTab() {
               <CatEconomicsWidget />
             </View>
 
-            {petId ? (
+            {primaryPet ? (
               <View>
                 <Text className="text-base font-semibold text-ink-900 mb-2">Weight Goal</Text>
                 <WeightGoalTracker
-                  pet={undefined as never}
-                  weights={undefined as never}
+                  pet={primaryPet}
+                  weights={weights}
                   onLogged={() => load()}
                 />
               </View>
