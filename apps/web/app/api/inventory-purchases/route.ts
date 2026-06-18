@@ -4,7 +4,7 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 
 export async function GET(req: Request) {
-  const { response } = await requireUser(req);
+  const { response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   const url = new URL(req.url);
   const itemId = url.searchParams.get('item_id');
@@ -21,7 +21,7 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const { user, response } = await requireUser(req);
+  const { user, response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();

@@ -13,9 +13,9 @@ const expenseSchema = z.object({
 });
 
 export async function GET(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const { data, error } = await client
     .from('pet_expenses')
     .select('*, pets(name)')
@@ -26,9 +26,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { user, response, supabase } = await requireUser(request);
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   try {
     const body = await request.json();
     const input = expenseSchema.parse(body);
@@ -42,9 +42,9 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const url = new URL(request.url);
   const id = url.searchParams.get('id');
   if (!id) return NextResponse.json({ error: { message: 'id required' } }, { status: 400 });

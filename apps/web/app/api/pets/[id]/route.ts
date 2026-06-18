@@ -4,7 +4,7 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
-  const { response } = await requireUser(req);
+  const { response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   const supabase = createSupabaseServerClient();
   const { data, error } = await supabase.from('pets').select('*').eq('id', params.id).single();
@@ -13,7 +13,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 }
 
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {
-  const { response } = await requireUser(req);
+  const { response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();
@@ -33,7 +33,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 }
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const { user, response } = await requireUser(req);
+  const { user, response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   const supabase = createSupabaseServerClient();
   const { error } = await supabase.from('pets').delete().eq('id', params.id).eq('owner_id', user.id);

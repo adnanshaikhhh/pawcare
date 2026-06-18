@@ -7,7 +7,7 @@ import { handleZodError, rateLimit } from '@/lib/route-helpers';
 export async function GET(request: Request) {
   const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const supabase = userSupabase ?? createSupabaseServerClient();
+  const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
 
   const { data, error } = await supabase
     .from('pets')
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const input = petCreateSchema.parse(body);
 
-    const supabase = userSupabase ?? createSupabaseServerClient();
+    const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
     const { data: profile } = await supabase
       .from('profiles')
       .select('family_group_id')

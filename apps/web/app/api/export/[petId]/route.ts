@@ -3,7 +3,7 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { generatePetProfilePdf } from '@/lib/pdf-export';
 
 export async function GET(req: Request, { params }: { params: { petId: string } }) {
-  const { response } = await requireUser(req);
+  const { response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   const supabase = createSupabaseServerClient();
   const { data: pet } = await supabase.from('pets').select('*').eq('id', params.petId).single();

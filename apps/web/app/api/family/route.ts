@@ -7,7 +7,7 @@ import { generateFamilyCode } from '@/lib/shared';
 export async function GET(request: Request) {
   const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const supabase = userSupabase ?? createSupabaseServerClient();
+  const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
   const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
   if (!profile?.family_group_id) {
     return NextResponse.json({ data: null });
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const input = familyCreateSchema.parse(body);
-    const supabase = userSupabase ?? createSupabaseServerClient();
+    const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
     const { data, error } = await supabase
       .from('family_groups')
       .insert({ name: input.name, owner_id: user.id, invite_code: generateFamilyCode() })
@@ -63,7 +63,7 @@ export async function PATCH(req: Request) {
   try {
     const body = await req.json();
     const input = familyJoinSchema.parse(body);
-    const supabase = userSupabase ?? createSupabaseServerClient();
+    const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
 
     const { data: group, error: groupErr } = await supabase
       .from('family_groups')

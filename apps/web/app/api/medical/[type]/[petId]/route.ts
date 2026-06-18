@@ -16,7 +16,7 @@ async function readTable(table: 'deworming_records' | 'weight_logs' | 'mood_logs
 }
 
 export async function GET(req: Request, { params }: { params: { type: string; petId: string } }) {
-  const { response } = await requireUser(req);
+  const { response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   const { type, petId } = params;
   try {
@@ -41,7 +41,7 @@ export async function GET(req: Request, { params }: { params: { type: string; pe
 }
 
 export async function POST(req: Request, { params }: { params: { type: string; petId: string } }) {
-  const { user, response } = await requireUser(req);
+  const { user, response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   const { type, petId } = params;
   try {

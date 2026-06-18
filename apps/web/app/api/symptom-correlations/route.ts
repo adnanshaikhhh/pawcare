@@ -3,9 +3,9 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { detectSymptomCorrelations } from '@/lib/v2-ai';
 
 export async function GET(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const { data, error } = await client
     .from('symptom_correlations')
     .select('*')
@@ -17,9 +17,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   try {
     const body = await request.json();
     const { data: pets } = await client.from('pets').select('id, name');

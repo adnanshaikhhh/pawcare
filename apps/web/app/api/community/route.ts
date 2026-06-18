@@ -23,9 +23,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { user, response, supabase } = await requireUser(request);
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   try {
     const body = await request.json();
     const input = postSchema.parse(body);

@@ -12,7 +12,7 @@ const profileUpdateSchema = z.object({
 export async function GET(request: Request) {
   const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const supabase = userSupabase ?? createSupabaseServerClient();
+  const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
   const { data, error } = await supabase.from('profiles').select('*').eq('id', user!.id).maybeSingle();
   if (error) return NextResponse.json({ error: { message: error.message } }, { status: 500 });
   return NextResponse.json({ data });
@@ -21,7 +21,7 @@ export async function GET(request: Request) {
 export async function PATCH(request: Request) {
   const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const supabase = userSupabase ?? createSupabaseServerClient();
+  const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
   try {
     const raw = await request.json();
     const parsed = profileUpdateSchema.parse(raw);

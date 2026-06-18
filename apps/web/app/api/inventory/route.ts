@@ -6,7 +6,7 @@ import { handleZodError } from '@/lib/route-helpers';
 export async function GET(request: Request) {
   const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const supabase = userSupabase ?? createSupabaseServerClient();
+  const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
   const { data, error } = await supabase
     .from('inventory_items')
     .select('*')
@@ -17,7 +17,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(req: Request) {
-  const { user, response } = await requireUser(req);
+  const { user, response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();

@@ -3,9 +3,9 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { generateVetPrepBrief } from '@/lib/v2-ai';
 
 export async function GET(request: Request) {
-  const { user, response, supabase } = await requireUser(request);
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const url = new URL(request.url);
   const petId = url.searchParams.get('pet_id');
   if (!petId) return NextResponse.json({ error: { message: 'pet_id required' } }, { status: 400 });
@@ -15,9 +15,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { user, response, supabase } = await requireUser(request);
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   try {
     const { pet_id, vet_visit_id } = await request.json();
     if (!pet_id) return NextResponse.json({ error: { message: 'pet_id required' } }, { status: 400 });

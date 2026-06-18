@@ -3,9 +3,9 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { checkMedicationInteractions } from '@/lib/v2-ai';
 
 export async function GET(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const { data: medications, error } = await client
     .from('medications')
     .select('id, medicine_name, purpose, is_active, pet_id')

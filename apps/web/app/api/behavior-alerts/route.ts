@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 
 export async function GET(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const { data, error } = await client
     .from('behavior_alerts')
     .select('*, pets(name, photo_url)')
@@ -15,9 +15,9 @@ export async function GET(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  const { user, response, supabase } = await requireUser(request);
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   try {
     const { id } = await request.json();
     const { data, error } = await client

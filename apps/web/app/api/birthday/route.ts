@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 
 export async function GET(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const url = new URL(request.url);
   const petId = url.searchParams.get('pet_id');
   const year = url.searchParams.get('year');
@@ -17,9 +17,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   try {
     const { pet_id, year, card_data } = await request.json();
     const { data: profile } = await client.from('profiles').select('family_group_id').eq('id', (await client.auth.getUser()).data.user?.id).single();

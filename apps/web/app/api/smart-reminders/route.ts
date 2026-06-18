@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 
 export async function GET(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const { data, error } = await client
     .from('smart_reminder_suggestions')
     .select('*')
@@ -16,9 +16,9 @@ export async function GET(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   try {
     const { id, action } = await request.json();
     const update = action === 'dismiss' ? { dismissed: true } : { acted_upon: true };

@@ -10,18 +10,18 @@ const goalSchema = z.object({
 });
 
 export async function GET(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const { data, error } = await client.from('weight_goal_progress').select('*, pets(name, target_weight_kg)').order('created_at', { ascending: false });
   if (error) return NextResponse.json({ error: { message: error.message } }, { status: 500 });
   return NextResponse.json({ data });
 }
 
 export async function POST(request: Request) {
-  const { user, response, supabase } = await requireUser(request);
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   try {
     const body = await request.json();
     const input = goalSchema.parse(body);

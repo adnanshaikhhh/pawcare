@@ -9,7 +9,7 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
   const includeCompleted = url.searchParams.get('include_completed') === 'true';
 
-  const supabase = userSupabase ?? createSupabaseServerClient();
+  const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
   let q = supabase
     .from('reminders')
     .select('*, pets(name, photo_url)')
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const input = reminderSchema.parse(body);
-    const supabase = userSupabase ?? createSupabaseServerClient();
+    const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
     const { data: profile } = await supabase
       .from('profiles')
       .select('family_group_id')
@@ -49,7 +49,7 @@ export async function PATCH(req: Request) {
   if (response) return response;
   try {
     const body = (await req.json()) as { id: string; is_completed?: boolean };
-    const supabase = userSupabase ?? createSupabaseServerClient();
+    const supabase = userSupabase ?? userSupabase ?? createSupabaseServerClient();
     const updates: Record<string, unknown> = {};
     if (typeof body.is_completed === 'boolean') {
       updates.is_completed = body.is_completed;

@@ -13,18 +13,18 @@ const respSchema = z.object({
 });
 
 export async function GET(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const { data, error } = await client.from('responsibilities').select('*, profiles:assignee_id(full_name, avatar_url), pets(name)').eq('active', true);
   if (error) return NextResponse.json({ error: { message: error.message } }, { status: 500 });
   return NextResponse.json({ data });
 }
 
 export async function POST(request: Request) {
-  const { user, response, supabase } = await requireUser(request);
+  const { user, response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   try {
     const body = await request.json();
     const input = respSchema.parse(body);
@@ -38,9 +38,9 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const url = new URL(request.url);
   const id = url.searchParams.get('id');
   if (!id) return NextResponse.json({ error: { message: 'id required' } }, { status: 400 });

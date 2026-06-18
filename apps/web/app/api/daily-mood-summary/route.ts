@@ -3,9 +3,9 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { computeMoodWeather } from '@/lib/v2-ai';
 
 export async function GET(request: Request) {
-  const { response, supabase } = await requireUser(request);
+  const { response, supabase: userSupabase } = await requireUser(request);
   if (response) return response;
-  const client = supabase ?? createSupabaseServerClient();
+  const client = userSupabase ?? createSupabaseServerClient();
   const today = new Date().toISOString().slice(0, 10);
 
   // Get today's mood logs from all pets in family
