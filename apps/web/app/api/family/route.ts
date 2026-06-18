@@ -26,12 +26,12 @@ export async function GET(request: Request) {
 
 export async function POST(req: Request) {
   // Create a new family group
-  const { user, response } = await requireUser(req);
+  const { user, response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();
     const input = familyCreateSchema.parse(body);
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
     const { data, error } = await supabase
       .from('family_groups')
       .insert({ name: input.name, owner_id: user.id, invite_code: generateFamilyCode() })
@@ -58,12 +58,12 @@ export async function POST(req: Request) {
 
 export async function PATCH(req: Request) {
   // Join with invite code
-  const { user, response } = await requireUser(req);
+  const { user, response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();
     const input = familyJoinSchema.parse(body);
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
 
     const { data: group, error: groupErr } = await supabase
       .from('family_groups')

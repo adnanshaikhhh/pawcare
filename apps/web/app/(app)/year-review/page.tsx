@@ -96,7 +96,7 @@ export default function YearReviewPage() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-display font-bold">📅 Year in Review</h1>
-          <p className="text-ink-500 mt-1">Annual recap of your pet's journey.</p>
+          <p className="text-ink-500 mt-1">Annual recap of your pet&apos;s journey.</p>
         </div>
 
         <div className="flex flex-wrap gap-3 items-end">

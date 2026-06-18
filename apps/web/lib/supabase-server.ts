@@ -53,31 +53,53 @@ export function createSupabaseUserClient(accessToken: string): SupabaseClient {
 }
 
 /**
+ * Extract a Bearer token from the Authorization header, if present.
+ */
+function extractBearer(request?: Request): string | null {
+  if (!request) return null;
+  const authHeader = request.headers.get('authorization');
+  if (authHeader?.startsWith('Bearer ')) {
+    const token = authHeader.slice(7);
+    if (token && token !== 'undefined' && token !== 'null') return token;
+  }
+  return null;
+}
+
+/**
+ * Get a Supabase client that is correctly authenticated for the current
+ * request. Prefers a Bearer token (mobile / API clients), falling back to
+ * the cookie-based session (web). Always passes through the user's
+ * authenticated context so RLS policies (e.g. auth.uid() IS NOT NULL) work.
+ */
+export function getSupabaseClient(request?: Request): SupabaseClient {
+  const token = extractBearer(request);
+  if (token) {
+    return createSupabaseUserClient(token);
+  }
+  return createSupabaseServerClient();
+}
+
+/**
  * Get the current user from either cookies (web) or Authorization header (mobile).
  * Returns null if no user is authenticated.
  */
 export async function getCurrentUser(request?: Request): Promise<{ user: any; supabase: SupabaseClient } | null> {
   // Try Bearer token first (for mobile/API clients)
-  if (request) {
-    const authHeader = request.headers.get('authorization');
-    if (authHeader?.startsWith('Bearer ')) {
-      const token = authHeader.slice(7);
-      if (token && token !== 'undefined' && token !== 'null') {
-        try {
-          const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-          const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-          const supabase = createSupabaseClient(url, key, {
-            global: { headers: { Authorization: `Bearer ${token}` } },
-            auth: { persistSession: false, autoRefreshToken: false },
-          });
-          const { data, error } = await supabase.auth.getUser();
-          if (!error && data.user) {
-            return { user: data.user, supabase };
-          }
-        } catch (e) {
-          // fall through to cookie auth
-        }
+  const token = extractBearer(request);
+  if (token) {
+    try {
+      const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+      const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+      const supabase = createSupabaseClient(url, key, {
+        global: { headers: { Authorization: `Bearer ${token}` } },
+        auth: { persistSession: false, autoRefreshToken: false },
+      });
+      const { data, error } = await supabase.auth.getUser();
+      if (!error && data.user) {
+        return { user: data.user, supabase };
       }
+    } catch (e) {
+      // fall through to cookie auth
     }
   }
   // Fall back to cookie-based auth (web)

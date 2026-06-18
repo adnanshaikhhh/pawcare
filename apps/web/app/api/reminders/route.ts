@@ -4,12 +4,12 @@ import { createSupabaseServerClient, requireUser } from '@/lib/supabase-server';
 import { handleZodError } from '@/lib/route-helpers';
 
 export async function GET(req: Request) {
-  const { response } = await requireUser(req);
+  const { response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   const url = new URL(req.url);
   const includeCompleted = url.searchParams.get('include_completed') === 'true';
 
-  const supabase = createSupabaseServerClient();
+  const supabase = userSupabase ?? createSupabaseServerClient();
   let q = supabase
     .from('reminders')
     .select('*, pets(name, photo_url)')
@@ -21,12 +21,12 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const { user, response } = await requireUser(req);
+  const { user, response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   try {
     const body = await req.json();
     const input = reminderSchema.parse(body);
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
     const { data: profile } = await supabase
       .from('profiles')
       .select('family_group_id')
@@ -45,11 +45,11 @@ export async function POST(req: Request) {
 }
 
 export async function PATCH(req: Request) {
-  const { user, response } = await requireUser(req);
+  const { user, response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
   try {
     const body = (await req.json()) as { id: string; is_completed?: boolean };
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
     const updates: Record<string, unknown> = {};
     if (typeof body.is_completed === 'boolean') {
       updates.is_completed = body.is_completed;
