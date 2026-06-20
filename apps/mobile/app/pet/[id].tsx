@@ -1,4 +1,5 @@
 import { View, Text, ScrollView, Pressable, useColorScheme, Animated, ActivityIndicator } from 'react-native';
+import * as Haptics from '@/lib/haptics';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';

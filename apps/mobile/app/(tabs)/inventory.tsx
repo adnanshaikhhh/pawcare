@@ -1,4 +1,5 @@
 import { View, Text, ScrollView, Pressable, RefreshControl, useColorScheme, ActivityIndicator } from 'react-native';
+import * as Haptics from '@/lib/haptics';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import Animated, {

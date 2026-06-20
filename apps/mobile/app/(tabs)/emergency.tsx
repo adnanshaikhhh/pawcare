@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import * as Haptics from '@/lib/haptics';
 import {
   View,
   Text,
@@ -244,7 +245,7 @@ export default function EmergencyTab() {
             />
             <Animated.View style={cardPulse}>
               <Pressable
-                onPress={findVets}
+                onPress={() => { Haptics.heavy(); findVets(); }}
                 disabled={isBusy}
                 style={({ pressed }) => ({
                   borderRadius: 22,
@@ -703,7 +704,7 @@ function VetResultCard({
       <View style={{ flexDirection: 'row', gap: 8, marginTop: 12 }}>
         {vet.phone ? (
           <Pressable
-            onPress={() => Linking.openURL(`tel:${vet.phone}`)}
+            onPress={() => { Haptics.medium(); Linking.openURL(`tel:${vet.phone}`); }}
             style={({ pressed }) => ({
               flex: 1,
               backgroundColor: '#FF3B30',
@@ -837,7 +838,7 @@ function SavedVetCard({
       </View>
       {vet.phone ? (
         <Pressable
-          onPress={() => Linking.openURL(`tel:${vet.phone}`)}
+          onPress={() => { Haptics.medium(); Linking.openURL(`tel:${vet.phone}`); }}
           style={({ pressed }) => ({
             width: 38,
             height: 38,

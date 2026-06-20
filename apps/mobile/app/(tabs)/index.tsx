@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import * as Haptics from '@/lib/haptics';
 import {
   View,
   Text,
@@ -388,7 +389,7 @@ export default function HomeScreen() {
                 iconBg={isDark ? 'rgba(255,107,107,0.15)' : '#FFF0EE'}
                 label="Symptoms"
                 sub="AI check"
-                onPress={() => router.push('/symptoms')}
+                onPress={() => { Haptics.medium(); router.push('/symptoms'); }}
                 isDark={isDark}
                 t={t}
               />
@@ -397,7 +398,7 @@ export default function HomeScreen() {
                 iconBg={isDark ? 'rgba(255,59,48,0.15)' : '#FFE5E5'}
                 label="Find Vet"
                 sub="24/7 clinics"
-                onPress={() => router.push('/emergency')}
+                onPress={() => { Haptics.medium(); router.push('/emergency'); }}
                 isDark={isDark}
                 t={t}
               />
@@ -417,7 +418,7 @@ export default function HomeScreen() {
                 iconBg={isDark ? 'rgba(0,122,255,0.15)' : '#E5F1FF'}
                 label="Stock"
                 sub="Inventory"
-                onPress={() => router.push('/inventory')}
+                onPress={() => { Haptics.light(); router.push('/inventory'); }}
                 isDark={isDark}
                 t={t}
               />
@@ -427,7 +428,7 @@ export default function HomeScreen() {
 
         {/* ─── SOS EMERGENCY CARD ─────────────────────────────────────────── */}
         <Pressable
-          onPress={() => router.push('/emergency')}
+          onPress={() => { Haptics.medium(); router.push('/emergency'); }}
           style={({ pressed }) => ({
             marginTop: 20,
             marginHorizontal: 16,

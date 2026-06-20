@@ -1,7 +1,8 @@
 import { Tabs } from 'expo-router';
-import { useColorScheme, View, StyleSheet } from 'react-native';
+import { useColorScheme, View, StyleSheet, Pressable } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { Home, PawPrint, Sparkles, Package, User } from 'lucide-react-native';
+import { light as hLight } from '@/lib/haptics';
 
 export default function TabsLayout() {
   const colorScheme = useColorScheme();
@@ -45,7 +46,7 @@ export default function TabsLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            focused ? <Home color={color} size={24} fill={color} /> : <Home color={color} size={24} />
+            focused ? <Pressable onPress={() => hLight()}><Home color={color} size={24} fill={color} /></Pressable> : <Home color={color} size={24} />
           ),
         }}
       />
@@ -54,7 +55,7 @@ export default function TabsLayout() {
         options={{
           title: 'Pets',
           tabBarIcon: ({ color, focused }) => (
-            focused ? <PawPrint color={color} size={24} fill={color} /> : <PawPrint color={color} size={24} />
+            focused ? <Pressable onPress={() => hLight()}><PawPrint color={color} size={24} fill={color} /></Pressable> : <PawPrint color={color} size={24} />
           ),
         }}
       />
@@ -63,7 +64,7 @@ export default function TabsLayout() {
         options={{
           title: 'Insights',
           tabBarIcon: ({ color, focused }) => (
-            focused ? <Sparkles color={color} size={24} fill={color} /> : <Sparkles color={color} size={24} />
+            focused ? <Pressable onPress={() => hLight()}><Sparkles color={color} size={24} fill={color} /></Pressable> : <Sparkles color={color} size={24} />
           ),
         }}
       />
@@ -72,7 +73,7 @@ export default function TabsLayout() {
         options={{
           title: 'Stock',
           tabBarIcon: ({ color, focused }) => (
-            focused ? <Package color={color} size={24} fill={color} /> : <Package color={color} size={24} />
+            focused ? <Pressable onPress={() => hLight()}><Package color={color} size={24} fill={color} /></Pressable> : <Package color={color} size={24} />
           ),
         }}
       />
@@ -81,7 +82,7 @@ export default function TabsLayout() {
         options={{
           title: 'Me',
           tabBarIcon: ({ color, focused }) => (
-            focused ? <User color={color} size={24} fill={color} /> : <User color={color} size={24} />
+            focused ? <Pressable onPress={() => hLight()}><User color={color} size={24} fill={color} /></Pressable> : <User color={color} size={24} />
           ),
         }}
       />

@@ -1,4 +1,5 @@
 import { View, Text, FlatList, Pressable, useColorScheme, Animated, Image } from 'react-native';
+import * as Haptics from '@/lib/haptics';
 import { useEffect, useRef } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -37,7 +38,7 @@ export default function PetsTab() {
             </Text>
           </View>
           <Pressable
-            onPress={() => router.push('/pet/new')}
+            onPress={() => { Haptics.medium(); router.push('/pet/new'); }}
             style={({ pressed }) => ({
               width: 52, height: 52, borderRadius: 26,
               backgroundColor: '#FF6B6B',
