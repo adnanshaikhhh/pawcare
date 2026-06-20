@@ -22,7 +22,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const input = inventoryItemSchema.parse(body);
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
     const { data: profile } = await supabase
       .from('profiles')
       .select('family_group_id')

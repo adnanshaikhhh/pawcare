@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const input = notificationSubscribeSchema.parse(body);
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
     const updates: Record<string, unknown> = {};
     if (input.expo_push_token) updates.notification_token = input.expo_push_token;
     if (input.web_push_subscription) updates.web_push_subscription = input.web_push_subscription;

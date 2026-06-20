@@ -10,7 +10,7 @@ export async function GET(req: Request) {
   const petId = url.searchParams.get('pet_id');
   if (!petId) return NextResponse.json({ error: { message: 'pet_id required' } }, { status: 400 });
 
-  const supabase = createSupabaseServerClient();
+  const supabase = userSupabase ?? createSupabaseServerClient();
   const { data, error } = await supabase
     .from('vet_visits')
     .select('*')
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const input = vetVisitSchema.parse(body);
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
     const { data, error } = await supabase
       .from('vet_visits')
       .insert({ ...input, logged_by: user.id })

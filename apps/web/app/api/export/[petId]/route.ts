@@ -5,7 +5,7 @@ import { generatePetProfilePdf } from '@/lib/pdf-export';
 export async function GET(req: Request, { params }: { params: { petId: string } }) {
   const { response, supabase: userSupabase } = await requireUser(req);
   if (response) return response;
-  const supabase = createSupabaseServerClient();
+  const supabase = userSupabase ?? createSupabaseServerClient();
   const { data: pet } = await supabase.from('pets').select('*').eq('id', params.petId).single();
   if (!pet) return NextResponse.json({ error: { message: 'Pet not found' } }, { status: 404 });
 

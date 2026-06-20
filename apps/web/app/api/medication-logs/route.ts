@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const input = medicationLogSchema.parse(body);
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
     const { data, error } = await supabase
       .from('medication_logs')
       .insert({ ...input, given_by: user.id })
@@ -29,7 +29,7 @@ export async function GET(req: Request) {
   const medicationId = url.searchParams.get('medication_id');
   if (!medicationId) return NextResponse.json({ error: { message: 'medication_id required' } }, { status: 400 });
 
-  const supabase = createSupabaseServerClient();
+  const supabase = userSupabase ?? createSupabaseServerClient();
   const { data, error } = await supabase
     .from('medication_logs')
     .select('*')

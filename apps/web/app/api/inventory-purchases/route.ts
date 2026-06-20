@@ -10,7 +10,7 @@ export async function GET(req: Request) {
   const itemId = url.searchParams.get('item_id');
   if (!itemId) return NextResponse.json({ error: { message: 'item_id required' } }, { status: 400 });
 
-  const supabase = createSupabaseServerClient();
+  const supabase = userSupabase ?? createSupabaseServerClient();
   const { data, error } = await supabase
     .from('inventory_purchases')
     .select('*')
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const input = inventoryPurchaseSchema.parse(body);
-    const supabase = createSupabaseServerClient();
+    const supabase = userSupabase ?? createSupabaseServerClient();
     const { data, error } = await supabase
       .from('inventory_purchases')
       .insert({ ...input, logged_by: user.id })
