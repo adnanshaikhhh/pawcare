@@ -24,7 +24,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
       .update(input)
       .eq('id', params.id)
       .select()
-      .single();
+      .maybeSingle();
     if (error) return NextResponse.json({ error: { message: error.message } }, { status: 500 });
     return NextResponse.json({ data });
   } catch (err) {
