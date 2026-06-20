@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "scheme": "pawcare",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -28,6 +28,8 @@
       "package": "app.pawcare.mobile",
       "versionCode": 1,
       "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.NOTIFICATIONS",
@@ -35,6 +37,25 @@
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": false,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "pawcare-omega.vercel.app"
+            },
+            {
+              "scheme": "pawcare"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
       ]
     },
     "web": {
@@ -51,23 +72,11 @@
         }
       ]
     ],
-    "extra": {
-      "EXPO_PUBLIC_SUPABASE_URL": "https://ktezkiifvstroujfjxqw.supabase.co",
-      "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_8f8EOyugePnuapOXAz7OZA_-IH35QMq",
-      "EXPO_PUBLIC_API_URL": "https://pawcare-omega.vercel.app",
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "da121561-e344-4566-95ee-40e6c1fb674c"
-      }
+    "experiments": {
+      "typedRoutes": false,
+      "tsconfigPaths": true,
+      "asyncRoutes": false
     },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "owner": "erennyeagearrr"
+    "entryPoint": "./node_modules/expo-router/entry"
   }
 }
